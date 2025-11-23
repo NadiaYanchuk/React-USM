@@ -32,7 +32,6 @@ const PokemonList = ({ pokemons, loading, onViewPokemon, currentPage, totalPages
 
             {!loading && pokemons.length > 0 && (
                 <div className="flex justify-center items-center gap-2 py-8">
-                    {/* Кнопка "Предыдущая" */}
                     <button
                         onClick={() => onPageChange(currentPage - 1)}
                         disabled={currentPage === 1}
@@ -46,7 +45,6 @@ const PokemonList = ({ pokemons, loading, onViewPokemon, currentPage, totalPages
                         Предыдущая
                     </button>
 
-                    {/* Номера страниц */}
                     <div className="flex gap-2">
                         {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                             <button
@@ -63,7 +61,6 @@ const PokemonList = ({ pokemons, loading, onViewPokemon, currentPage, totalPages
                         ))}
                     </div>
 
-                    {/* Кнопка "Следующая" */}
                     <button
                         onClick={() => onPageChange(currentPage + 1)}
                         disabled={currentPage === totalPages}

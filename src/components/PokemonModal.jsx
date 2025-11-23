@@ -13,7 +13,6 @@ const PokemonModal = ({
 }) => {
     const [isEditMode, setIsEditMode] = useState(isCreateMode);
     
-    // Вычисляем начальное значение формы на основе props
     const getInitialFormData = () => {
         if (pokemon && !isCreateMode) {
             return {
@@ -59,8 +58,6 @@ const PokemonModal = ({
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Form submitted:', formData);
-        console.log('isCreateMode:', isCreateMode);
         
         if (isCreateMode) {
             onCreate(formData);

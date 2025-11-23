@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import PokemonList from './components/PokemonList';
 import PokemonModal from './components/PokemonModal';
+import SearchBar from './components/SearchBar';
+import FilterPanel from './components/FilterPanel';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faChevronDown, faChevronUp, faFilter } from '@fortawesome/free-solid-svg-icons';
 import './App.css';
 
 function App() {
@@ -14,6 +16,14 @@ function App() {
     const [isCreateMode, setIsCreateMode] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages] = useState(5);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [isFilterPanelOpen, setIsFilterPanelOpen] = useState(false);
+    const [filters, setFilters] = useState({
+        types: [],
+        sortBy: 'name-asc',
+        heightRange: [0, 100],
+        weightRange: [0, 1000],
+    });
 
     const ITEMS_PER_PAGE = 20;
     const TOTAL_ITEMS = ITEMS_PER_PAGE * totalPages;
@@ -31,7 +41,6 @@ function App() {
                 data.results.map(async (pokemon) => {
                     const res = await fetch(pokemon.url);
                     const pokemonData = await res.json();
-                    // Добавляем уникальный ключ для избежания дубликатов
                     return {
                         ...pokemonData,
                         uniqueKey: `${pokemonData.id}-${Date.now()}-${Math.random()}`
@@ -53,18 +62,93 @@ function App() {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // Обновление отображаемых покемонов при изменении страницы
+    // Мемоизированная фильтрация и поиск
+    const filteredPokemons = useMemo(() => {
+        let result = [...allPokemons];
+
+        // Поиск по имени
+        if (searchQuery) {
+            result = result.filter(pokemon =>
+                pokemon.name.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+        }
+
+        // Фильтр по типам
+        if (filters.types.length > 0) {
+            result = result.filter(pokemon =>
+                pokemon.types?.some(type =>
+                    filters.types.includes(type.type.name)
+                )
+            );
+        }
+
+        // Фильтр по росту
+        result = result.filter(pokemon =>
+            pokemon.height >= filters.heightRange[0] &&
+            pokemon.height <= filters.heightRange[1]
+        );
+
+        // Фильтр по весу
+        result = result.filter(pokemon =>
+            pokemon.weight >= filters.weightRange[0] &&
+            pokemon.weight <= filters.weightRange[1]
+        );
+
+        // Сортировка
+        switch (filters.sortBy) {
+            case 'name-asc':
+                result.sort((a, b) => a.name.localeCompare(b.name));
+                break;
+            case 'name-desc':
+                result.sort((a, b) => b.name.localeCompare(a.name));
+                break;
+            case 'height-asc':
+                result.sort((a, b) => a.height - b.height);
+                break;
+            case 'height-desc':
+                result.sort((a, b) => b.height - a.height);
+                break;
+            case 'weight-asc':
+                result.sort((a, b) => a.weight - b.weight);
+                break;
+            case 'weight-desc':
+                result.sort((a, b) => b.weight - a.weight);
+                break;
+            default:
+                break;
+        }
+
+        return result;
+    }, [allPokemons, searchQuery, filters]);
+
     useEffect(() => {
         const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
         const endIndex = startIndex + ITEMS_PER_PAGE;
-        setPokemons(allPokemons.slice(startIndex, endIndex));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentPage, allPokemons]);
+        setPokemons(filteredPokemons.slice(startIndex, endIndex));
+    }, [currentPage, filteredPokemons]);
+
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchQuery, filters]);
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
+
+    // Сброс фильтров
+    const handleResetFilters = () => {
+        setSearchQuery('');
+        setFilters({
+            types: [],
+            sortBy: 'name-asc',
+            heightRange: [0, 100],
+            weightRange: [0, 1000],
+        });
+        setCurrentPage(1);
+    };
+
+    const calculatedTotalPages = Math.ceil(filteredPokemons.length / ITEMS_PER_PAGE) || 1;
 
     const handleViewPokemon = (pokemon) => {
         setSelectedPokemon(pokemon);
@@ -85,10 +169,8 @@ function App() {
     };
 
     const handleCreate = (newPokemon) => {
-        console.log('Creating pokemon:', newPokemon);
-        
         const pokemon = {
-        id: Date.now(), // Генерируем уникальный ID
+        id: Date.now(),
         uniqueKey: `custom-${Date.now()}-${Math.random()}`,
         name: newPokemon.name.toLowerCase(),
         height: parseInt(newPokemon.height),
@@ -109,9 +191,8 @@ function App() {
         ],
         };
 
-        console.log('Pokemon object:', pokemon);
         setAllPokemons([pokemon, ...allPokemons]);
-        setCurrentPage(1); // Переходим на первую страницу
+        setCurrentPage(1);
         handleCloseModal();
     };
 
@@ -176,12 +257,46 @@ function App() {
                 </button>
                 </header>
 
+                <div className="flex items-center justify-between gap-4 mb-6">
+                    <button
+                        onClick={() => setIsFilterPanelOpen(!isFilterPanelOpen)}
+                        className="bg-white hover:bg-gray-50 text-gray-800 px-4 py-3 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2 shadow-lg whitespace-nowrap hover:shadow-xl transform hover:scale-105"
+                    >
+                        <FontAwesomeIcon icon={faFilter} className="text-blue-500" />
+                        Фильтры
+                        <FontAwesomeIcon 
+                            icon={isFilterPanelOpen ? faChevronUp : faChevronDown} 
+                            className={`text-blue-500 transition-transform duration-300 ${isFilterPanelOpen ? 'rotate-180' : 'rotate-0'}`}
+                        />
+                    </button>
+                    
+                    <SearchBar 
+                        searchQuery={searchQuery}
+                        onSearchChange={setSearchQuery}
+                    />
+                </div>
+
+                <div 
+                    className={`transition-all duration-500 ease-in-out overflow-hidden ${
+                        isFilterPanelOpen 
+                            ? 'max-h-[2000px] opacity-100 mb-6' 
+                            : 'max-h-0 opacity-0 mb-0'
+                    }`}
+                >
+                    <FilterPanel
+                        filters={filters}
+                        onFilterChange={setFilters}
+                        onResetFilters={handleResetFilters}
+                        foundCount={filteredPokemons.length}
+                    />
+                </div>
+
                 <PokemonList
                     pokemons={pokemons}
                     loading={loading}
                     onViewPokemon={handleViewPokemon}
                     currentPage={currentPage}
-                    totalPages={totalPages}
+                    totalPages={calculatedTotalPages}
                     onPageChange={handlePageChange}
                 />
 
