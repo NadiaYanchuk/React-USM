@@ -28,22 +28,26 @@ const PokemonCard = ({ pokemon, onClick }) => {
     return (
         <div
             onClick={onClick}
-            className="bg-white rounded-xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition duration-300 cursor-pointer overflow-hidden"
+            className="bg-white rounded-xl shadow-lg pokemon-card-hover cursor-pointer overflow-hidden relative group"
         >
-            <div className="bg-gradient-to-br from-gray-100 to-gray-200 p-6 flex justify-center items-center h-48">
+            <div className="absolute top-2 right-2 text-6xl opacity-5 group-hover:opacity-10 transition-opacity duration-300">
+                ⚪
+            </div>
+            
+            <div className="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 p-6 flex justify-center items-center h-48 relative">
                 <img
                     src={pokemon.sprites?.front_default || 'https://via.placeholder.com/150'}
                     alt={pokemon.name}
-                    className="w-32 h-32 object-contain drop-shadow-lg"
+                    className="w-32 h-32 object-contain drop-shadow-2xl group-hover:animate-bounce-slow transition-all duration-300"
                 />
             </div>
             
             <div className="p-4">
-                <h3 className="text-xl font-bold text-gray-800 capitalize mb-2 text-center">
+                <h3 className="text-xl font-bold text-gray-800 capitalize mb-2 text-center transition-colors">
                     {pokemon.name}
                 </h3>
                 
-                <div className="flex justify-center gap-2 mb-3">
+                <div className="flex justify-center gap-2 mb-3 flex-wrap">
                     {pokemon.types?.map((type, index) => (
                         <span
                             key={index}

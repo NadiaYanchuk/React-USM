@@ -16,8 +16,8 @@ const FilterPanel = ({
     ];
 
     const sortOptions = [
-        { value: 'name-asc', label: 'Имя (А-Я)' },
-        { value: 'name-desc', label: 'Имя (Я-А)' },
+        { value: 'name-asc', label: 'Имя (A-Z) (A-Я)' },
+        { value: 'name-desc', label: 'Имя (Z-A) (Я-А)' },
         { value: 'height-asc', label: 'Рост (возр.)' },
         { value: 'height-desc', label: 'Рост (убыв.)' },
         { value: 'weight-asc', label: 'Вес (возр.)' },

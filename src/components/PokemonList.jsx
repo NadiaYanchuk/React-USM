@@ -18,15 +18,15 @@ const PokemonList = ({ pokemons, loading, onViewPokemon, currentPage, totalPages
 
             {loading && (
                 <div className="text-center py-8">
-                    <div className="inline-block animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-white"></div>
-                    <p className="text-white text-xl mt-4">Загрузка покемонов...</p>
+                    <div className="pokeball-spinner mx-auto"></div>
+                    <p className="text-white text-xl mt-4 font-bold">Загрузка покемонов...</p>
                 </div>
             )}
 
             {!loading && pokemons.length === 0 && (
                 <div className="text-center py-16">
-                    <p className="text-white text-2xl">Нет покемонов 😢</p>
-                    <p className="text-white/80 mt-2">Добавьте первого покемона!</p>
+                    <p className="text-white text-2xl font-bold">Покемоны не найдены!</p>
+                    <p className="text-white/80 mt-2">Попробуйте изменить фильтры или добавьте нового покемона</p>
                 </div>
             )}
 
