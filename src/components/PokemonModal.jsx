@@ -117,7 +117,6 @@ const PokemonModal = ({
                                         onClose();
                                     }}
                                     className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg font-semibold transition flex items-center gap-2"
-                                    title="Открыть на отдельной странице"
                                 >
                                     <FontAwesomeIcon icon={Icons.faExternalLinkAlt} />
                                     Открыть страницу
@@ -141,6 +140,9 @@ const PokemonModal = ({
                                     src={pokemon.sprites?.front_default || 'https://via.placeholder.com/150'}
                                     alt={pokemon.name}
                                     className="w-48 h-48 object-contain drop-shadow-2xl"
+                                    onError={(e) => {
+                                        e.target.src = 'https://via.placeholder.com/150';
+                                    }}
                                 />
                             </div>
 

@@ -3,15 +3,42 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { usePokemon } from '../context/PokemonContext';
 import ConfirmModal from '../components/ConfirmModal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faEdit, faTrash, faRulerVertical, faWeightHanging, faHeart, faBolt, faShield } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faEdit, faTrash, faRulerVertical, faWeightHanging, faHeart, faBolt, faShield, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 const PokemonDetailPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
-    const { getById, deleteEntity } = usePokemon();
+    const { getById, deleteEntity, pokemons, loading } = usePokemon();
     const [showConfirm, setShowConfirm] = useState(false);
 
     const pokemon = getById(id);
+    
+    // Найти индекс текущего покемона
+    const currentIndex = pokemons.findIndex(p => p.id === parseInt(id));
+    const hasPrevious = currentIndex > 0;
+    const hasNext = currentIndex < pokemons.length - 1;
+    
+    const handlePrevious = () => {
+        if (hasPrevious) {
+            const previousPokemon = pokemons[currentIndex - 1];
+            navigate(`/pokemon/${previousPokemon.id}`);
+        }
+    };
+    
+    const handleNext = () => {
+        if (hasNext) {
+            const nextPokemon = pokemons[currentIndex + 1];
+            navigate(`/pokemon/${nextPokemon.id}`);
+        }
+    };
+
+    if (loading) {
+        return (
+            <div className="min-h-screen bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 flex items-center justify-center">
+                <div className="pokeball-spinner"></div>
+            </div>
+        );
+    }
 
     if (!pokemon) {
         return (
@@ -62,13 +89,44 @@ const PokemonDetailPage = () => {
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 py-8 px-4">
             <div className="container mx-auto max-w-4xl">
-                <button
-                    onClick={() => navigate('/')}
-                    className="bg-white hover:bg-gray-100 text-gray-800 px-4 py-2 rounded-lg font-semibold transition mb-6 shadow-lg"
-                >
-                    <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
-                    Назад к списку
-                </button>
+                <div className="flex items-center justify-between mb-6">
+                    <button
+                        onClick={() => navigate('/')}
+                        className="bg-white hover:bg-gray-100 text-gray-800 px-4 py-2 rounded-lg font-semibold transition shadow-lg"
+                    >
+                        <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
+                        Назад к списку
+                    </button>
+                    
+                    <div className="flex gap-2">
+                        <button
+                            onClick={handlePrevious}
+                            disabled={!hasPrevious}
+                            className={`${
+                                hasPrevious 
+                                    ? 'bg-white hover:bg-gray-100 text-gray-800' 
+                                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                            } px-4 py-2 rounded-lg font-semibold transition shadow-lg flex items-center gap-2`}
+                            title="Предыдущий покемон"
+                        >
+                            <FontAwesomeIcon icon={faChevronLeft} />
+                            Предыдущий
+                        </button>
+                        <button
+                            onClick={handleNext}
+                            disabled={!hasNext}
+                            className={`${
+                                hasNext 
+                                    ? 'bg-white hover:bg-gray-100 text-gray-800' 
+                                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                            } px-4 py-2 rounded-lg font-semibold transition shadow-lg flex items-center gap-2`}
+                            title="Следующий покемон"
+                        >
+                            Следующий
+                            <FontAwesomeIcon icon={faChevronRight} />
+                        </button>
+                    </div>
+                </div>
 
                 <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
                     <div className="bg-gradient-to-r from-blue-500 to-purple-500 p-6 text-white">
@@ -112,6 +170,9 @@ const PokemonDetailPage = () => {
                                     src={pokemon.sprites?.front_default || 'https://via.placeholder.com/300'}
                                     alt={pokemon.name}
                                     className="w-64 h-64 object-contain drop-shadow-2xl"
+                                    onError={(e) => {
+                                        e.target.src = 'https://via.placeholder.com/300';
+                                    }}
                                 />
                             </div>
 

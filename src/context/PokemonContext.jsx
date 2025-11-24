@@ -52,8 +52,6 @@ export const PokemonProvider = ({ children }) => {
     };
 
     const addEntity = (newPokemon) => {
-        console.log('Adding pokemon:', newPokemon);
-        
         const pokemon = {
             id: Math.max(...pokemons.map(p => p.id), 0) + 1,
             name: newPokemon.name.toLowerCase(),
@@ -75,10 +73,8 @@ export const PokemonProvider = ({ children }) => {
             uniqueKey: `${Date.now()}-${Math.random()}`
         };
 
-        console.log('Created pokemon:', pokemon);
         setPokemons(prevPokemons => {
-            const newList = [...prevPokemons, pokemon];
-            console.log('New pokemons list length:', newList.length);
+            const newList = [pokemon, ...prevPokemons];
             return newList;
         });
         return pokemon;

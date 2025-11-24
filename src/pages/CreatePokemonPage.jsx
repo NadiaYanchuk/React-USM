@@ -57,9 +57,7 @@ const CreatePokemonPage = () => {
             return;
         }
 
-        console.log('Submitting form data:', formData);
-        const newPokemon = addEntity(formData);
-        console.log('Pokemon created, navigating to home...', newPokemon);
+        addEntity(formData);
         navigate('/');
     };
 

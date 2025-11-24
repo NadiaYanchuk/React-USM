@@ -29,7 +29,6 @@ const HomePage = () => {
 
     // Фильтрация и сортировка покемонов
     const filteredPokemons = useMemo(() => {
-        console.log('Total pokemons in HomePage:', pokemons.length);
         let result = [...pokemons];
 
         // Поиск по имени
@@ -37,7 +36,6 @@ const HomePage = () => {
             result = result.filter(pokemon =>
                 pokemon.name.toLowerCase().includes(searchQuery.toLowerCase())
             );
-            console.log('After search filter:', result.length);
         }
 
         // Фильтр по типам
@@ -47,31 +45,19 @@ const HomePage = () => {
                     filters.types.includes(type.type.name)
                 )
             );
-            console.log('After type filter:', result.length);
         }
 
         // Фильтр по росту
-        const beforeHeight = result.length;
         result = result.filter(pokemon =>
             pokemon.height >= filters.heightRange[0] &&
             pokemon.height <= filters.heightRange[1]
         );
-        console.log(`After height filter (${filters.heightRange[0]}-${filters.heightRange[1]}):`, result.length, 'removed:', beforeHeight - result.length);
 
         // Фильтр по весу
-        const beforeWeight = result.length;
         result = result.filter(pokemon =>
             pokemon.weight >= filters.weightRange[0] &&
             pokemon.weight <= filters.weightRange[1]
         );
-        console.log(`After weight filter (${filters.weightRange[0]}-${filters.weightRange[1]}):`, result.length, 'removed:', beforeWeight - result.length);
-
-        const removed = pokemons.filter(p => !result.includes(p));
-        if (removed.length > 0) {
-            console.log('Removed pokemons:', removed.map(p => ({ name: p.name, height: p.height, weight: p.weight })));
-        }
-
-        console.log('Filtered pokemons:', result.length);
 
         // Сортировка
         const [sortField, sortOrder] = filters.sortBy.split('-');

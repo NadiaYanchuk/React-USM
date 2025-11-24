@@ -35,6 +35,9 @@ const PokemonCard = ({ pokemon, onClick }) => {
                     src={pokemon.sprites?.front_default || 'https://via.placeholder.com/150'}
                     alt={pokemon.name}
                     className="w-32 h-32 object-contain drop-shadow-2xl group-hover:animate-bounce-slow transition-all duration-300"
+                    onError={(e) => {
+                        e.target.src = 'https://via.placeholder.com/150';
+                    }}
                 />
             </div>
             
