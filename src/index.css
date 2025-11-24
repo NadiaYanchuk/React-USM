@@ -2,109 +2,140 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Pokemon Theme Styles */
 @layer base {
-  body {
-    font-family: 'Arial', 'Helvetica', sans-serif;
-    position: relative;
-  }
-  
-  /* Pokeball pattern background */
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0.03;
-    z-index: -1;
-    background-image: 
-      radial-gradient(circle at 20% 20%, rgba(255, 203, 5, 0.3) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(255, 0, 0, 0.3) 0%, transparent 50%),
-      radial-gradient(circle at 40% 60%, rgba(59, 130, 246, 0.3) 0%, transparent 50%);
-    pointer-events: none;
-  }
+    body {
+        font-family: 'Arial', 'Helvetica', sans-serif;
+        position: relative;
+    }
+    
+    body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.03;
+        z-index: -1;
+        background-image: 
+        radial-gradient(circle at 20% 20%, rgba(255, 203, 5, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 0, 0, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 60%, rgba(59, 130, 246, 0.3) 0%, transparent 50%);
+        pointer-events: none;
+    }
 }
 
 @layer utilities {
-  /* Pokemon-themed animations */
-  @keyframes pokeball-spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  
-  @keyframes pokemon-bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-  
-  @keyframes shimmer {
-    0% { background-position: -200% center; }
-    100% { background-position: 200% center; }
-  }
-  
-  .animate-pokeball {
-    animation: pokeball-spin 2s linear infinite;
-  }
-  
-  .animate-bounce-slow {
-    animation: pokemon-bounce 2s ease-in-out infinite;
-  }
-  
-  .pokemon-card-hover {
-    transition: all 0.3s ease;
-  }
-  
-  .pokemon-card-hover:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  }
-  
-  /* Pokemon type badge styles */
-  .type-badge {
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .type-badge::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    transition: left 0.5s;
-  }
-  
-  .type-badge:hover::before {
-    left: 100%;
-  }
-  
-  /* Pokeball loading spinner */
-  .pokeball-spinner {
-    width: 50px;
-    height: 50px;
-    background: 
-      radial-gradient(circle at 50% 50%, #fff 0%, #fff 40%, transparent 40%),
-      linear-gradient(to bottom, #f00 0%, #f00 50%, #fff 50%, #fff 100%);
-    border: 3px solid #472929;
-    border-radius: 50%;
-    position: relative;
-    animation: pokeball-spin 1s linear infinite;
-  }
-  
-  .pokeball-spinner::after {
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background: #fff;
-    border: 3px solid #000;
-    border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
+    /* Pokemon-themed animations */
+    @keyframes pokeball-spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes pokemon-bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes shimmer {
+        0% { background-position: -200% center; }
+        100% { background-position: 200% center; }
+    }
+    
+    .animate-pokeball {
+        animation: pokeball-spin 2s linear infinite;
+    }
+    
+    .animate-bounce-slow {
+        animation: pokemon-bounce 2s ease-in-out infinite;
+    }
+    
+    .pokemon-card-hover {
+        transition: all 0.3s ease;
+    }
+    
+    .pokemon-card-hover:hover {
+        transform: translateY(-8px) scale(1.02);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    }
+    
+    .type-badge {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .type-badge::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+        transition: left 0.5s;
+    }
+    
+    .type-badge:hover::before {
+        left: 100%;
+    }
+    
+    @keyframes pulse-ring {
+        0% {
+            transform: scale(0.8);
+            opacity: 1;
+        }
+        50% {
+            transform: scale(1.2);
+            opacity: 0.5;
+        }
+        100% {
+            transform: scale(0.8);
+            opacity: 1;
+        }
+    }
+
+    .pokeball-spinner {
+        width: 50px;
+        height: 50px;
+        background: 
+            radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.3) 28%, transparent 28%),
+            linear-gradient(to bottom, transparent 0%, transparent 48%, rgba(255, 255, 255, 0.5) 48%, rgba(255, 255, 255, 0.5) 52%, #fff 52%, #fff 100%);
+        border: 3px solid #fff;
+        border-radius: 50%;
+        position: relative;
+        animation: pokeball-spin 1.5s linear infinite;
+    }
+    
+    .pokeball-spinner::before {
+        display: none;
+    }
+    
+    .pokeball-spinner::after {
+        content: '';
+        position: absolute;
+        width: 14px;
+        height: 14px;
+        background: #fff;
+        border: 3px solid rgba(255, 255, 255, 0.7);
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    /* Toast animation */
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-in {
+        animation: fade-in 0.3s ease-out;
+    }
 }

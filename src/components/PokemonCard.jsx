@@ -30,10 +30,6 @@ const PokemonCard = ({ pokemon, onClick }) => {
             onClick={onClick}
             className="bg-white rounded-xl shadow-lg pokemon-card-hover cursor-pointer overflow-hidden relative group"
         >
-            <div className="absolute top-2 right-2 text-6xl opacity-5 group-hover:opacity-10 transition-opacity duration-300">
-                ⚪
-            </div>
-            
             <div className="bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 p-6 flex justify-center items-center h-48 relative">
                 <img
                     src={pokemon.sprites?.front_default || 'https://via.placeholder.com/150'}

@@ -72,7 +72,6 @@ const FilterPanel = ({
             </div>
 
             <div>
-                {/* Сортировка */}
                 <div className="mb-6">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                     <FontAwesomeIcon icon={Icons.faSort} className="mr-2" />
@@ -91,7 +90,6 @@ const FilterPanel = ({
                 </select>
             </div>
 
-            {/* Типы покемонов */}
             <div className="mb-6">
                 <label className="block text-sm font-semibold text-gray-700 mb-3">
                     <FontAwesomeIcon icon={Icons.faTags} className="mr-2" />
@@ -117,7 +115,6 @@ const FilterPanel = ({
                 </div>
             </div>
 
-            {/* Диапазон роста */}
             <div className="mb-6">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Максимальный рост: {filters.heightRange[1]} дм ({filters.heightRange[1] / 10}м)
@@ -135,7 +132,6 @@ const FilterPanel = ({
                 />
             </div>
 
-            {/* Диапазон веса */}
             <div className="mb-6">
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                     Максимальный вес: {filters.weightRange[1]} гг ({filters.weightRange[1] / 10}кг)

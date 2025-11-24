@@ -10,6 +10,7 @@ const PokemonModal = ({
     onCreate,
     onUpdate,
     onDelete,
+    onOpenDetailPage,
 }) => {
     const [isEditMode, setIsEditMode] = useState(isCreateMode);
     
@@ -107,12 +108,28 @@ const PokemonModal = ({
                                 pokemon?.name || 'Покемон'
                             )}
                         </h2>
-                        <button
-                            onClick={onClose}
-                            className="text-white hover:text-gray-200 text-3xl font-bold transition hover:scale-110"
-                        >
-                            <FontAwesomeIcon icon={Icons.faTimes} />
-                        </button>
+                        <div className="flex items-center gap-3">
+                            {/* Кнопка открытия на отдельной странице */}
+                            {!isCreateMode && onOpenDetailPage && (
+                                <button
+                                    onClick={() => {
+                                        onOpenDetailPage(pokemon);
+                                        onClose();
+                                    }}
+                                    className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg font-semibold transition flex items-center gap-2"
+                                    title="Открыть на отдельной странице"
+                                >
+                                    <FontAwesomeIcon icon={Icons.faExternalLinkAlt} />
+                                    Открыть страницу
+                                </button>
+                            )}
+                            <button
+                                onClick={onClose}
+                                className="text-white hover:text-gray-200 text-3xl font-bold transition hover:scale-110"
+                            >
+                                <FontAwesomeIcon icon={Icons.faTimes} />
+                            </button>
+                        </div>
                     </div>
                 </div>
 
