@@ -41,8 +41,8 @@ const PokemonList = ({ pokemons, loading, onViewPokemon, currentPage, totalPages
                                 : 'bg-white text-purple-600 hover:bg-gray-100 shadow-lg hover:scale-105'
                         }`}
                     >
-                        <FontAwesomeIcon icon={Icons.faChevronLeft} className="mr-2" />
-                        Предыдущая
+                        <FontAwesomeIcon icon={Icons.faChevronLeft} className="md:mr-2" />
+                        <span className="hidden md:inline">Предыдущая</span>
                     </button>
 
                     <div className="flex gap-2">
@@ -70,8 +70,8 @@ const PokemonList = ({ pokemons, loading, onViewPokemon, currentPage, totalPages
                                 : 'bg-white text-purple-600 hover:bg-gray-100 shadow-lg hover:scale-105'
                         }`}
                     >
-                        Следующая
-                        <FontAwesomeIcon icon={Icons.faChevronRight} className="ml-2" />
+                        <span className="hidden md:inline">Следующая</span>
+                        <FontAwesomeIcon icon={Icons.faChevronRight} className="md:ml-2" />
                     </button>
                 </div>
             )}

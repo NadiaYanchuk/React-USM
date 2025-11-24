@@ -94,8 +94,8 @@ const PokemonDetailPage = () => {
                         onClick={() => navigate('/')}
                         className="bg-white hover:bg-gray-100 text-gray-800 px-4 py-2 rounded-lg font-semibold transition shadow-lg"
                     >
-                        <FontAwesomeIcon icon={faArrowLeft} className="mr-2" />
-                        Назад к списку
+                        <FontAwesomeIcon icon={faArrowLeft} className="md:mr-2" />
+                        <span className="hidden md:inline">Назад к списку</span>
                     </button>
                     
                     <div className="flex gap-2">
@@ -110,7 +110,7 @@ const PokemonDetailPage = () => {
                             title="Предыдущий покемон"
                         >
                             <FontAwesomeIcon icon={faChevronLeft} />
-                            Предыдущий
+                            <span className="hidden md:inline">Предыдущий</span>
                         </button>
                         <button
                             onClick={handleNext}
@@ -122,7 +122,7 @@ const PokemonDetailPage = () => {
                             } px-4 py-2 rounded-lg font-semibold transition shadow-lg flex items-center gap-2`}
                             title="Следующий покемон"
                         >
-                            Следующий
+                            <span className="hidden md:inline">Следующий</span>
                             <FontAwesomeIcon icon={faChevronRight} />
                         </button>
                     </div>
@@ -149,15 +149,15 @@ const PokemonDetailPage = () => {
                                     onClick={handleEdit}
                                     className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 px-4 py-2 rounded-lg font-semibold transition shadow-lg"
                                 >
-                                    <FontAwesomeIcon icon={faEdit} className="mr-2" />
-                                    Редактировать
+                                    <FontAwesomeIcon icon={faEdit} className="md:mr-2" />
+                                    <span className="hidden md:inline">Редактировать</span>
                                 </button>
                                 <button
                                     onClick={handleDelete}
                                     className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg font-semibold transition shadow-lg"
                                 >
-                                    <FontAwesomeIcon icon={faTrash} className="mr-2" />
-                                    Удалить
+                                    <FontAwesomeIcon icon={faTrash} className="md:mr-2" />
+                                    <span className="hidden md:inline">Удалить</span>
                                 </button>
                             </div>
                         </div>

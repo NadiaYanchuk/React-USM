@@ -85,13 +85,12 @@ const CreatePokemonPage = () => {
                         >
                             <FontAwesomeIcon icon={faArrowLeft} />
                         </button>
-                        <h1 className="text-3xl font-bold text-gray-800">Создать нового покемона</h1>
+                        <h1 className="text-xl md:text-3xl font-bold text-gray-800">Добавить нового покемона</h1>
                     </div>
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
                             <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                <FontAwesomeIcon icon={faUser} className="mr-2" />
                                 Имя покемона *
                             </label>
                             <input
@@ -108,7 +107,6 @@ const CreatePokemonPage = () => {
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                    <FontAwesomeIcon icon={faRulerVertical} className="mr-2" />
                                     Рост (дм)
                                 </label>
                                 <input
@@ -122,7 +120,6 @@ const CreatePokemonPage = () => {
                             </div>
                             <div>
                                 <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                    <FontAwesomeIcon icon={faWeightHanging} className="mr-2" />
                                     Вес (гг)
                                 </label>
                                 <input
@@ -138,7 +135,6 @@ const CreatePokemonPage = () => {
 
                         <div>
                             <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                <FontAwesomeIcon icon={faImage} className="mr-2" />
                                 URL изображения
                             </label>
                             <input
@@ -224,15 +220,15 @@ const CreatePokemonPage = () => {
                         <div className="flex gap-4 pt-4">
                             <button
                                 type="submit"
-                                className="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition shadow-lg"
+                                className="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition shadow-lg text-sm md:text-base"
                             >
                                 <FontAwesomeIcon icon={faSave} className="mr-2" />
-                                Создать покемона
+                                Добавить
                             </button>
                             <button
                                 type="button"
                                 onClick={() => navigate('/')}
-                                className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 px-6 rounded-lg transition"
+                                className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-3 px-6 rounded-lg transition text-sm md:text-base"
                             >
                                 Отмена
                             </button>

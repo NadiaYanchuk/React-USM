@@ -96,7 +96,7 @@ const PokemonModal = ({
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
             <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-                <div className="sticky top-0 bg-gradient-to-r from-purple-600 to-blue-600 text-white p-6 rounded-t-2xl">
+                <div className="sticky top-0 bg-gradient-to-r from-purple-600 to-blue-600 text-white p-6 rounded-t-2xl z-10">
                     <div className="flex justify-between items-center">
                         <h2 className="text-3xl font-bold capitalize">
                             {isCreateMode ? (
@@ -119,7 +119,7 @@ const PokemonModal = ({
                                     className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg font-semibold transition flex items-center gap-2"
                                 >
                                     <FontAwesomeIcon icon={Icons.faExternalLinkAlt} />
-                                    Открыть страницу
+                                    <span className="hidden md:inline">Открыть страницу</span>
                                 </button>
                             )}
                             <button
@@ -232,15 +232,15 @@ const PokemonModal = ({
                                     onClick={() => setIsEditMode(true)}
                                     className="flex-1 bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition"
                                 >
-                                    <FontAwesomeIcon icon={Icons.faEdit} className="mr-2" />
-                                    Редактировать
+                                    <FontAwesomeIcon icon={Icons.faEdit} className="md:mr-2" />
+                                    <span className="hidden md:inline">Редактировать</span>
                                 </button>
                                 <button
                                     onClick={() => onDelete(pokemon.id)}
                                     className="flex-1 bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-6 rounded-lg transition"
                                 >
-                                    <FontAwesomeIcon icon={Icons.faTrash} className="mr-2" />
-                                    Удалить
+                                    <FontAwesomeIcon icon={Icons.faTrash} className="md:mr-2" />
+                                    <span className="hidden md:inline">Удалить</span>
                                 </button>
                             </div>
                         </div>
