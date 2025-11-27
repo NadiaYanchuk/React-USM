@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { usePokemon } from '../context/PokemonContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft, faSave, faUser, faRulerVertical, faWeightHanging, faImage, faHeart, faBolt, faShield } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faSave, faHeart, faBolt, faShield } from '@fortawesome/free-solid-svg-icons';
 import Toast from '../components/Toast';
 
 const CreatePokemonPage = () => {

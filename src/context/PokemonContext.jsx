@@ -81,6 +81,15 @@ export const PokemonProvider = ({ children }) => {
     };
 
     const updateEntity = (updatedPokemon) => {
+        let typesArray = [];
+        if (Array.isArray(updatedPokemon.types)) {
+            typesArray = updatedPokemon.types;
+        } else if (typeof updatedPokemon.types === 'string' && updatedPokemon.types.trim() !== '') {
+            typesArray = updatedPokemon.types.includes(',') 
+                ? updatedPokemon.types.split(',').map(t => t.trim())
+                : [updatedPokemon.types.trim()];
+        }
+        
         setPokemons(prevPokemons =>
             prevPokemons.map(pokemon =>
                 pokemon.id === updatedPokemon.id
@@ -93,9 +102,11 @@ export const PokemonProvider = ({ children }) => {
                             ...pokemon.sprites,
                             front_default: updatedPokemon.image || pokemon.sprites.front_default
                         },
-                        types: updatedPokemon.types.map(type => ({
-                            type: { name: type }
-                        })),
+                        types: typesArray.map(type => 
+                            typeof type === 'string' 
+                                ? { type: { name: type } }
+                                : type
+                        ),
                         stats: [
                             { stat: { name: 'hp' }, base_stat: parseInt(updatedPokemon.hp) || 0 },
                             { stat: { name: 'attack' }, base_stat: parseInt(updatedPokemon.attack) || 0 },

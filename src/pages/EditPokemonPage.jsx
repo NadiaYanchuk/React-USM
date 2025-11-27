@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { usePokemon } from '../context/PokemonContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -40,7 +40,7 @@ const EditPokemonPage = () => {
         };
     };
 
-    const [formData, setFormData] = useState(getInitialFormData);
+    const [formData, setFormData] = useState(getInitialFormData());
 
     if (!pokemon) {
         return (
@@ -67,6 +67,8 @@ const EditPokemonPage = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+        if (name === 'types') return;
+        
         setFormData(prev => ({
             ...prev,
             [name]: value
@@ -95,6 +97,8 @@ const EditPokemonPage = () => {
             return;
         }
 
+        console.log('formData before updateEntity:', formData);
+        console.log('formData.types:', formData.types);
         updateEntity(formData);
         navigate(`/pokemon/${id}`);
     };

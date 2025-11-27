@@ -4,7 +4,6 @@ import HomePage from './pages/HomePage';
 import PokemonDetailPage from './pages/PokemonDetailPage';
 import CreatePokemonPage from './pages/CreatePokemonPage';
 import EditPokemonPage from './pages/EditPokemonPage';
-import './App.css';
 
 function App() {
     return (
